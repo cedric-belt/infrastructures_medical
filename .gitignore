@@ -1,0 +1,189 @@
+# infrastructures_medical
+
+Système de gestion des infrastructures médicales destiné aux établissements de santé, cliniques, hôpitaux et centres de soins.
+
+## Vision
+
+Ce projet fournit une base de logiciel de gestion opérationnelle pour :
+- suivre les équipements médicaux critiques ;
+- gérer les interventions de maintenance ;
+- centraliser les données cliniques et de disponibilité ;
+- faciliter la supervision des ressources techniques et humaines ;
+- produire des tableaux de bord fiables pour la direction et les équipes techniques.
+
+## Fonctionnalités principales
+
+- Dashboard de santé de l'infrastructure
+- Inventaire des équipements médicaux
+- Suivi des alertes et des interventions
+- Gestion des patients dans un contexte de ressources
+- API REST documentée
+- Conteneurisation Docker
+- Tests unitaires automatisés
+- Support d'installation locale et cloud
+
+## Architecture technique
+
+Le projet est structuré en modules Python / Flask avec une base SQLite par défaut pour le développement local, et un schéma facilement extensible vers PostgreSQL en production.
+
+## Démarrage rapide
+
+### Prérequis
+
+- Python 3.11+
+- pip
+- Docker (optionnel)
+
+### Installation
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python app.py
+```
+
+L'application est ensuite accessible sur :
+- http://localhost:5000
+- http://localhost:5000/health
+
+### Avec Docker
+
+```bash
+docker compose up --build
+```
+
+## Structure du projet
+
+```text
+.
+├── app.py
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── README.md
+├── docs/
+│   ├── architecture.md
+│   ├── api.md
+│   └── deployment.md
+├── src/
+│   ├── __init__.py
+│   ├── app_factory.py
+│   ├── config.py
+│   ├── database.py
+│   ├── models.py
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── health.py
+│   │   ├── equipment.py
+│   │   └── patients.py
+│   └── services/
+│       ├── __init__.py
+│       ├── equipment_service.py
+│       └── maintenance_service.py
+├── tests/
+│   └── test_health.py
+└── data/
+    └── app.db
+```
+
+## Points d'entrée
+
+- `app.py` : point d'entrée principal du backend
+- `src/app_factory.py` : création de l'application Flask
+- `src/routes/*` : endpoints API
+- `src/services/*` : logique métier
+- `docs/` : guides techniques et d'exploitation
+
+## Documentation
+
+- [docs/architecture.md](docs/architecture.md)
+- [docs/api.md](docs/api.md)
+- [docs/deployment.md](docs/deployment.md)
+
+## API de base
+
+### Santé
+
+- `GET /health`
+
+### Équipements
+
+- `GET /api/v1/equipment`
+- `POST /api/v1/equipment`
+- `GET /api/v1/equipment/<id>`
+
+### Patients
+
+- `GET /api/v1/patients`
+- `POST /api/v1/patients`
+
+### Alertes de maintenance
+
+- `GET /api/v1/alerts`
+
+## Exemples de données
+
+### Équipement
+
+```json
+{
+  "name": "Scanner IRM",
+  "category": "imagerie",
+  "location": "Bloc 2",
+  "status": "operational",
+  "serial_number": "IRM-2045"
+}
+```
+
+## Sécurité et conformité
+
+Le projet est conçu comme une base saine pour un logiciel de santé avec :
+- séparation logique des composants ;
+- validation des entrées ;
+- journalisation ;
+- préparation pour le support d'audit ;
+- architecture extensible selon les exigences de sécurité.
+
+## Roadmap projet
+
+### Phase 1
+- Inventaire des équipements
+- Suivi de maintenance
+- API de base
+- Tableau de bord santé
+
+### Phase 2
+- Authentification et rôles
+- Recherche avancée
+- Historiques de maintenance
+- Notifications
+
+### Phase 3
+- Intégration ERP/HL7/FHIR
+- Reporting avancé
+- Multi-site
+- Évolutions réglementaires
+
+## Licence
+
+Ce projet est fourni à titre de base de démarrage technique. Adapté selon les besoins de votre organisation.
+
+## Contribution
+
+1. Créer une branche
+2. Modifier ou ajouter des modules
+3. Ajouter des tests
+4. Vérifier le bon fonctionnement
+5. Soumettre une PR
+
+## Objectif
+
+Ce dépôt sert de base de logiciel complet pour une organisation de santé souhaitant gérer ses infrastructures, ses équipements et ses opérations de maintenance dans un environnement moderne et extensible.
+
+---
+
+Ce dépôt est un socle de production technique prêt à être enrichi selon votre environnement de santé, vos règlementations et vos besoins métiers.
